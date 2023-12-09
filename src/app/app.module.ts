@@ -11,12 +11,15 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ChartComponent} from "./chart/chart.component";
 import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
+import { DisableButtonDirective } from './directives/disable-button.directive';
+import {MatTooltip, MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    ChartComponent
+    ChartComponent,
+    DisableButtonDirective
   ],
   imports: [
     BrowserModule,
@@ -27,9 +30,10 @@ import {MatSelectModule} from "@angular/material/select";
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
   ],
-  providers: [],
+  providers: [MatTooltip],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
