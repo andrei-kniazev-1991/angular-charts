@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <span>Chart Dashboard</span>
+  <mat-form-field appearance="fill">
+    <mat-label>Date Period</mat-label>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateInput)="onDateChange($event.value)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</mat-toolbar>
+
+<div class="flex flex-wrap p-4">
+  <div *ngFor="let chart of charts; let i = index">
+    <mat-card class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+      <h3>Chart {{ i + 1 }}</h3>
+      <mat-form-field>
+        <mat-label>Select Sensors</mat-label>
+        <mat-select [(ngModel)]="chart.selectedSensors" multiple>
+          <mat-option *ngFor="let sensor of availableSensors" [value]="sensor">{{ sensor }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select Chart Type</mat-label>
+        <mat-select [(ngModel)]="chart.chartType">
+          <mat-option value="line">Line Chart</mat-option>
+          <mat-option value="bar">Bar Chart</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select Line Color</mat-label>
+        <input matInput [(ngModel)]="chart.lineColors[0]" type="color">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="onChartConfigChange()">Apply Changes</button>
+
+      <app-chart
+        [chartType]="chart.chartType"
+        [selectedSensors]="chart.selectedSensors"
+        [lineColors]="chart.lineColors"
+        [data]="chart.data"
+      ></app-chart>
+    </mat-card>
+  </div>
+</div>
